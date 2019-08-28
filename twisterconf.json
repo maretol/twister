@@ -1,0 +1,13 @@
+{
+  "urls": [
+    ""
+  ],
+  "paths": [
+    ""
+  ],
+  "check": {
+    "body": true,
+    "statusCode": true,
+    "header": true
+  }
+}
