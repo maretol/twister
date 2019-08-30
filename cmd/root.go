@@ -5,10 +5,11 @@ import (
 	"github.com/spf13/viper"
 )
 
-var Hoge string
 var cfgFile string
+
+// RootCmd はコマンド定義そのもの。これに AddCommand していく
 var RootCmd = &cobra.Command{
-	Use:           "twister",
+	Use:           "twister [command]",
 	Short:         "Twister is web differ",
 	Long:          "Hello! Welcome to twister which is web differ.\nfirst, you run the command 'twister init'",
 	SilenceErrors: true,
@@ -48,9 +49,13 @@ func initConfig() {
 	IsConfigExist = true
 }
 
+// IsConfigExist はコンフィグファイルが見つけられたかどうか
 var IsConfigExist = false
+
+// Config はコンフィグファイルから読んだ情報
 var Config ConfigBase
 
+// ConfigBase はコンフィグ定義をしている構造体
 type ConfigBase struct {
 	Urls  []string `json:"urls"`
 	Paths []string `json:"paths"`

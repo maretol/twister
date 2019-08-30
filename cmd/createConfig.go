@@ -19,7 +19,6 @@ func configCmd() *cobra.Command {
 		Use:   "config [command]",
 		Short: "config command",
 		Long:  "You can create config template and will be able to edit config file",
-		// Run:   hoge,
 	}
 	baseCmd.AddCommand(configCreateCmd())
 	baseCmd.AddCommand(configEditCmd())
