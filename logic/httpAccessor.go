@@ -23,12 +23,12 @@ type Fuel struct {
 // SetFullURL は各URLにPATHをつなげたURLを作ってそれを Booster 構造体にセットします
 func (b *Booster) SetFullURL(path string, urls []string) {
 	b.path = path
-	b.urlList = urls
+	b.urlList = make([]string, len(urls))
 	b.ResultMap = make(map[string]Fuel, len(urls))
 	for num := range urls {
 		url := urls[num]
 		fullURL := url + path
-		b.urlList = append(b.urlList, fullURL)
+		b.urlList[num] = fullURL
 	}
 }
 

@@ -40,12 +40,11 @@ func initConfig() {
 		Config = ConfigBase{}
 		return
 	}
-
 	Config.Urls = viper.GetStringSlice("urls")
 	Config.Paths = viper.GetStringSlice("paths")
 	Config.Check.Body = viper.GetBool("check.body")
 	Config.Check.Header = viper.GetBool("check.header")
-	Config.Check.StatusCode = viper.GetBool("checker.statusCode")
+	Config.Check.StatusCode = viper.GetBool("check.statusCode")
 	IsConfigExist = true
 }
 

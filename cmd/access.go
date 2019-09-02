@@ -34,6 +34,9 @@ func accessCmd() *cobra.Command {
 func access(cmd *cobra.Command, args []string) {
 	urls := Config.Urls
 	paths := Config.Paths
+	header = Config.Check.Header
+	body = Config.Check.Body
+	statusCode = Config.Check.StatusCode
 	accessAllURL(urls, paths)
 }
 
@@ -42,6 +45,6 @@ func accessAllURL(urls []string, pathes []string) {
 		booster := logic.Booster{}
 		booster.SetFullURL(path, urls)
 		booster.AllAccess()
-		logic.Output(booster, Config.Check.StatusCode, Config.Check.Header, Config.Check.Body)
+		logic.Output(booster, statusCode, header, body)
 	}
 }
