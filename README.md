@@ -65,7 +65,15 @@ configファイルのurlは非共通部分、pathsはパスの共通部分で分
 
 ## license
 
-たぶん MIT になる。
+たぶん MIT になる。(I may apply MIT License)
+
+---
+
+Used Library
+
+ - viper / https://github.com/spf13/viper
+ - cobra / https://github.com/spf13/cobra
+ - go-diff / https://github.com/sergi/go-diff
 
 ---
 
