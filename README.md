@@ -1,6 +1,10 @@
 # Twister
 
-2つのWebページを比較する
+`[Twi]n page te[ster]` -> Twister
+
+2つのWebページを比較する。
+
+APIサーバとかWebサーバで破壊的更新をしなければならないときとかに確認する
 
 ## Using
 
