@@ -21,7 +21,7 @@ $ twister config create
 ### example:
 実際に動かしてみる
 
-たとえばWebサーバを更新する必要があったとする
+たとえばWebサーバに破壊的変更が入って更新する必要があったとする
 
  - URL1 : `https://old.server/`
  - URL2 : `https://new.server/`
@@ -62,6 +62,13 @@ configファイルのurlは非共通部分、pathsはパスの共通部分で分
 また現状ヘッダーは比較できていない。
 
 実行時にパラメータを設定するとconfigを上書きして比較したり、--config で任意のコンフィグファイルを渡せるようになってるはず。
+
+## want to do
+
+ - HTTPアクセスの並列処理
+ - masterブランチの自動ビルド
+ - responseがJSONやXMLだったときはテキストとしての比較ではなくデータ各要素の比較にしたい
+ - リファクタリング
 
 ## license
 
