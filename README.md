@@ -57,6 +57,7 @@ $ twister config create
     {
       url: "http://new.server",
       tag: "new"
+    }
   ],
 ```
 
