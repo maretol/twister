@@ -90,6 +90,7 @@ configファイルのurlは非共通部分、pathsはパスの共通部分で分
  - masterブランチの自動ビルド
  - header の比較
  - responseがJSONやXMLだったときはテキストとしての比較ではなくデータ各要素の比較にしたい
+ - Color 対応
  - リファクタリング
 
 ## license
