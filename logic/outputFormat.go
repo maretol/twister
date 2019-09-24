@@ -129,8 +129,8 @@ func getBodyDiff(ResultMap map[string]Fuel) []string {
 
 func getStatusCodeList(ResultMap map[string]Fuel) []string {
 	var tmp []string
-	for url, response := range ResultMap {
-		tmp = append(tmp, strconv.Itoa(response.StatusCode)+":"+url)
+	for key, response := range ResultMap {
+		tmp = append(tmp, key+":"+strconv.Itoa(response.StatusCode))
 	}
 	return tmp
 }
@@ -145,7 +145,7 @@ func getKeysFromMap(fromMap map[string]Fuel) []string {
 }
 
 const resultFormat1 = `
----------------------------------------------------------------------------------------
+======================================================================================
 RESULT : %s
 PATH   : %s
 `
