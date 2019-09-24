@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/spf13/cobra"
@@ -59,7 +58,6 @@ func initConfig() {
 		}
 		break
 	case map[string]interface{}:
-		fmt.Printf("here\n")
 		for _, obj := range urls {
 			u := obj.(map[string]interface{})["url"]
 			t := obj.(map[string]interface{})["tag"]
