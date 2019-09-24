@@ -9,7 +9,7 @@ import (
 // Booster は path とそれに対応するHTTPアクセスの結果の構造体
 type Booster struct {
 	path      string
-	urlList   []string
+	urlList   []localUrls
 	ResultMap map[string]Fuel
 }
 
@@ -20,22 +20,33 @@ type Fuel struct {
 	Body       string
 }
 
+type localUrls struct {
+	fullURL string
+	tag     string
+}
+
+// GetURL は cmd.URL を受け取るために使う構造体。変換して使って
+type GetURL struct {
+	URL string
+	Tag string
+}
+
 // SetFullURL は各URLにPATHをつなげたURLを作ってそれを Booster 構造体にセットします
-func (b *Booster) SetFullURL(path string, urls []string) {
+func (b *Booster) SetFullURL(path string, urls []GetURL) {
 	b.path = path
-	b.urlList = make([]string, len(urls))
+	b.urlList = make([]localUrls, len(urls))
 	b.ResultMap = make(map[string]Fuel, len(urls))
-	for num := range urls {
-		url := urls[num]
-		fullURL := url + path
-		b.urlList[num] = fullURL
+	for num, url := range urls {
+		b.urlList[num].fullURL = url.URL + path
+		b.urlList[num].tag = url.Tag
 	}
 }
 
 // AllAccess はSetFullURLで設定したURLにアクセスします。
 func (b *Booster) AllAccess() {
 	for num := range b.urlList {
-		url := b.urlList[num]
+		url := b.urlList[num].fullURL
+		tag := b.urlList[num].tag
 		// channel := make(chan Fuel) // 最終的には並列にしたい
 		var fuel Fuel
 		func() {
@@ -50,7 +61,7 @@ func (b *Booster) AllAccess() {
 				Body:       string(body),
 			}
 		}()
-		b.ResultMap[url] = fuel
+		b.ResultMap[tag] = fuel
 	}
 }
 

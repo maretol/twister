@@ -74,7 +74,7 @@ func configCreating(cmd *cobra.Command, args []string) {
 	}
 	defer file.Close()
 	Config = ConfigBase{}
-	Config.Urls = []string{""}
+	Config.Urls = []Urls{}
 	Config.Paths = []string{""}
 	Config.Check.Body = true
 	Config.Check.Header = true

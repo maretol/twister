@@ -42,6 +42,26 @@ $ twister config create
 
 もし結果が同じなら"Not exist the result to show"って答えてくれる。違ったら差分を出せるようにしたい（現状は一応差分を出してくれるが完璧な状態ではない）
 
+#### Option
+
+表示時にURLだけだとわからないケースでもURLにタグ付けしてあげると表示時にそっちを使ってくれる
+
+その場合、設定ファイルには
+
+```
+  "urls": [
+    {
+      url: "http://old.server",
+      tag: "old"
+    },
+    {
+      url: "http://new.server",
+      tag: "new"
+  ],
+```
+
+と書いてあげればいい
+
 ### example2
 
 configファイルのurlは非共通部分、pathsはパスの共通部分で分けているので

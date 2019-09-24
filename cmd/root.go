@@ -1,6 +1,9 @@
 package cmd
 
 import (
+	"fmt"
+	"log"
+
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -40,7 +43,33 @@ func initConfig() {
 		Config = ConfigBase{}
 		return
 	}
-	Config.Urls = viper.GetStringSlice("urls")
+	rowUrls := viper.Get("urls")
+	urls := rowUrls.([]interface{})
+	Config.Urls = []Urls{}
+	switch urls[0].(type) {
+	case string:
+		for _, obj := range urls {
+			u := Urls{Tag: obj.(string), URL: obj.(string)}
+			Config.Urls = append(Config.Urls, u)
+		}
+		break
+	case Urls:
+		for _, obj := range urls {
+			Config.Urls = append(Config.Urls, obj.(Urls))
+		}
+		break
+	case map[string]interface{}:
+		fmt.Printf("here\n")
+		for _, obj := range urls {
+			u := obj.(map[string]interface{})["url"]
+			t := obj.(map[string]interface{})["tag"]
+			o := Urls{Tag: t.(string), URL: u.(string)}
+			Config.Urls = append(Config.Urls, o)
+		}
+		break
+	default:
+		log.Fatal("ERROR! URL format is not correct in config file")
+	}
 	Config.Paths = viper.GetStringSlice("paths")
 	Config.Check.Body = viper.GetBool("check.body")
 	Config.Check.Header = viper.GetBool("check.header")
@@ -56,13 +85,17 @@ var Config ConfigBase
 
 // ConfigBase はコンフィグ定義をしている構造体
 type ConfigBase struct {
-	Urls  []string `json:"urls"`
+	Urls  []Urls   `json:"urls"`
 	Paths []string `json:"paths"`
-	Check checker  `json:"check"`
+	Check struct {
+		Body       bool `json:"body"`
+		StatusCode bool `json:"statusCode"`
+		Header     bool `json:"header"`
+	} `json:"check"`
 }
 
-type checker struct {
-	Body       bool `json:"body"`
-	StatusCode bool `json:"statusCode"`
-	Header     bool `json:"header"`
+// Urls はタグと結び付けられたURL情報の構造体。使用回数が多いので分けた
+type Urls struct {
+	Tag string `json:"tag"`
+	URL string `json:"url"`
 }

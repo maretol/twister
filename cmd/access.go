@@ -40,10 +40,15 @@ func access(cmd *cobra.Command, args []string) {
 	accessAllURL(urls, paths)
 }
 
-func accessAllURL(urls []string, pathes []string) {
+func accessAllURL(urls []Urls, pathes []string) {
 	for _, path := range pathes {
 		booster := logic.Booster{}
-		booster.SetFullURL(path, urls)
+		passURL := make([]logic.GetURL, len(urls))
+		for num, obj := range urls {
+			passURL[num].URL = obj.URL
+			passURL[num].Tag = obj.Tag
+		}
+		booster.SetFullURL(path, passURL)
 		booster.AllAccess()
 		logic.Output(booster, statusCode, header, body)
 	}

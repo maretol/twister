@@ -44,7 +44,11 @@ func showResult(result Booster, statusCodeMatched, headerMatched, bodyMatched bo
 		fmt.Printf(resultFormat4_1)
 		fmt.Printf(resultFormat4_2)
 		for num, diff := range bodyDiff {
-			fmt.Printf(resultFormat4_3, result.urlList[num], diff)
+			num2 := num
+			for num2 >= len(result.urlList) {
+				num2 = num2 - len(result.urlList)
+			}
+			fmt.Printf(resultFormat4_3, result.urlList[num2].tag, diff)
 		}
 	}
 }
@@ -166,7 +170,7 @@ const resultFormat4_2 = `
 Line : - (今は出せない)
 Diff :
 `
-const resultFormat4_3 = `URL : %s
+const resultFormat4_3 = `Tag(or URL) : %s
 %s
 
 `
