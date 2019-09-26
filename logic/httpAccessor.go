@@ -8,15 +8,21 @@ import (
 
 // Booster は path とそれに対応するHTTPアクセスの結果の構造体
 type Booster struct {
-	path      string
-	urlList   []localUrls
-	ResultMap map[string]Fuel
+	path         string
+	urlList      []localUrls
+	ResultMap    map[string]Fuel
+	HeaderIgnore []string
+	Checker      struct {
+		StatusCode bool
+		Header     bool
+		Body       bool
+	}
 }
 
 // Fuel はHTTPアクセスの比較に使われる要素をひとまとめにした構造体
 type Fuel struct {
 	StatusCode int
-	Header     string // Header は Key/Value にするかも
+	Header     map[string][]string
 	Body       string
 }
 
@@ -57,15 +63,11 @@ func (b *Booster) AllAccess() {
 			body, _ := ioutil.ReadAll(res.Body)
 			res.Body.Close()
 			fuel = Fuel{
+				Header:     res.Header,
 				StatusCode: res.StatusCode,
 				Body:       string(body),
 			}
 		}()
 		b.ResultMap[tag] = fuel
 	}
-}
-
-// ShowDiff は結果の差分を表示するメソッドです
-func (b *Booster) ShowDiff() {
-
 }

@@ -11,10 +11,11 @@ func init() {
 }
 
 var (
-	header     bool
-	body       bool
-	statusCode bool
-	output     string
+	header       bool
+	body         bool
+	statusCode   bool
+	headerIgnore []string
+	output       string
 )
 
 func accessCmd() *cobra.Command {
@@ -37,6 +38,7 @@ func access(cmd *cobra.Command, args []string) {
 	header = Config.Check.Header
 	body = Config.Check.Body
 	statusCode = Config.Check.StatusCode
+	headerIgnore = Config.Header.Ignore
 	accessAllURL(urls, paths)
 }
 
@@ -50,6 +52,10 @@ func accessAllURL(urls []Urls, pathes []string) {
 		}
 		booster.SetFullURL(path, passURL)
 		booster.AllAccess()
-		logic.Output(booster, statusCode, header, body)
+		booster.Checker.StatusCode = statusCode
+		booster.Checker.Header = header
+		booster.Checker.Body = body
+		booster.HeaderIgnore = headerIgnore
+		logic.Output(booster)
 	}
 }

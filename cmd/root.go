@@ -72,6 +72,7 @@ func initConfig() {
 	Config.Check.Body = viper.GetBool("check.body")
 	Config.Check.Header = viper.GetBool("check.header")
 	Config.Check.StatusCode = viper.GetBool("check.statusCode")
+	Config.Header.Ignore = viper.GetStringSlice("header.ignore")
 	IsConfigExist = true
 }
 
@@ -90,6 +91,9 @@ type ConfigBase struct {
 		StatusCode bool `json:"statusCode"`
 		Header     bool `json:"header"`
 	} `json:"check"`
+	Header struct {
+		Ignore []string `json:"ignore"`
+	} `json:"header"`
 }
 
 // Urls はタグと結び付けられたURL情報の構造体。使用回数が多いので分けた
